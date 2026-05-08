@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html lang="en" style=""><head></head><body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden" data-mode="connect">```html
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>For Rara</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#7b5549",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#583d5f",
+                        "inverse-surface": "#323030",
+                        "outline-variant": "#d0c3c7",
+                        "tertiary-fixed": "#ffdbd0",
+                        "tertiary-container": "#ffe5dd",
+                        "inverse-on-surface": "#f5efef",
+                        "on-error-container": "#93000a",
+                        "primary": "#6b5a60",
+                        "surface-bright": "#fef8f8",
+                        "surface-container": "#f3ecec",
+                        "primary-fixed": "#f4dce4",
+                        "on-tertiary-container": "#876053",
+                        "surface-dim": "#ded9d9",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1d1b1b",
+                        "on-secondary-fixed": "#291231",
+                        "on-primary-fixed-variant": "#524249",
+                        "surface-variant": "#e7e1e1",
+                        "outline": "#7f7478",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f8f2f2",
+                        "surface": "#fef8f8",
+                        "secondary-container": "#f8d4fe",
+                        "secondary-fixed-dim": "#debbe4",
+                        "on-background": "#1d1b1b",
+                        "secondary": "#715478",
+                        "on-secondary-container": "#75597c",
+                        "surface-tint": "#6b5a60",
+                        "primary-container": "#fce4ec",
+                        "on-surface-variant": "#4d4447",
+                        "secondary-fixed": "#fad7ff",
+                        "background": "#fef8f8",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2f140b",
+                        "inverse-primary": "#d7c1c8",
+                        "tertiary-fixed-dim": "#edbbac",
+                        "on-primary-fixed": "#25181e",
+                        "surface-container-high": "#ede7e7",
+                        "on-tertiary-fixed-variant": "#613e33",
+                        "primary-fixed-dim": "#d7c1c8",
+                        "on-primary-container": "#76646b",
+                        "surface-container-highest": "#e7e1e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "2rem",
+                        "sm": "0.5rem",
+                        "xs": "0.25rem",
+                        "lg": "2rem",
+                        "md": "1rem",
+                        "xl": "4rem",
+                        "gutter": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Playfair Display"],
+                        "letter-cursive": ["Epilogue"],
+                        "display-romantic": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "letter-cursive": ["20px", {"lineHeight": "1.8", "fontWeight": "300"}],
+                        "display-romantic": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: float-up 1s ease-out forwards;
+            font-size: 20px;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        .floating-text {
+            position: absolute;
+            pointer-events: none;
+            animation: float-text 1.5s ease-out forwards;
+            font-weight: bold;
+            color: #d7c1c8;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @keyframes float-text {
+            0% {
+                transform: translate(-50%, 0) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                transform: translate(-50%, -20px) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -60px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .btn-press {
+            transform: scale(0.95);
+            box-shadow: 0 0 15px rgba(113,84,120,0.8);
+        }
+    
+        .slider-thumb-custom::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 2px solid #6b5a60;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(107, 90, 96, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .slider-thumb-custom::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #fce4ec;
+            box-shadow: 0 0 15px rgba(113, 84, 120, 0.5);
+        }
+
+        .slider-thumb-custom::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 2px solid #6b5a60;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(107, 90, 96, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .slider-thumb-custom::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            background: #fce4ec;
+            box-shadow: 0 0 15px rgba(113, 84, 120, 0.5);
+        }
+    
+        .sparkle-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle-float 15s infinite ease-in-out;
+        }
+
+        .bg-sparkle.pink {
+            background: #f4dce4;
+            box-shadow: 0 0 10px #f4dce4;
+        }
+
+        .bg-sparkle.gold {
+            background: #ffdbd0;
+            box-shadow: 0 0 10px #ffdbd0;
+        }
+
+        @keyframes sparkle-float {
+            0%, 100% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.6;
+                transform: translate(10px, -20px) scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translate(20px, -40px) scale(0.8);
+            }
+            75% {
+                opacity: 0.6;
+                transform: translate(10px, -60px) scale(1.1);
+            }
+        }
+    
+        @keyframes gentle-drift {
+            0%, 100% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(8px) translateY(-1px);
+                opacity: 1;
+            }
+        }
+
+        .cinematic-drift {
+            display: inline-block;
+            animation: gentle-drift 5s ease-in-out infinite;
+            letter-spacing: 0.1em;
+        }
+    
+        .heart-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: heart-trail-anim 0.8s ease-out forwards;
+            font-size: 14px;
+            user-select: none;
+        }
+
+        @keyframes heart-trail-anim {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -100px) scale(1.2) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<div class="sparkle-bg-container">
+<div class="bg-sparkle pink" style="top: 10%; left: 15%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+<div class="bg-sparkle gold" style="top: 25%; left: 80%; width: 3px; height: 3px; animation-delay: 2s;"></div>
+<div class="bg-sparkle pink" style="top: 40%; left: 5%; width: 5px; height: 5px; animation-delay: 4s;"></div>
+<div class="bg-sparkle gold" style="top: 60%; left: 90%; width: 4px; height: 4px; animation-delay: 1s;"></div>
+<div class="bg-sparkle pink" style="top: 75%; left: 30%; width: 3px; height: 3px; animation-delay: 5s;"></div>
+<div class="bg-sparkle gold" style="top: 85%; left: 60%; width: 6px; height: 6px; animation-delay: 3s;"></div>
+<div class="bg-sparkle pink" style="top: 15%; left: 45%; width: 4px; height: 4px; animation-delay: 7s;"></div>
+<div class="bg-sparkle gold" style="top: 50%; left: 50%; width: 3px; height: 3px; animation-delay: 8s;"></div>
+<div class="bg-sparkle pink" style="top: 90%; left: 10%; width: 5px; height: 5px; animation-delay: 2.5s;"></div>
+<div class="bg-sparkle gold" style="top: 35%; left: 25%; width: 4px; height: 4px; animation-delay: 6s;"></div>
+<div class="bg-sparkle pink" style="top: 70%; left: 75%; width: 3px; height: 3px; animation-delay: 9s;"></div>
+<div class="bg-sparkle gold" style="top: 5%; left: 95%; width: 5px; height: 5px; animation-delay: 1.5s;"></div>
+</div>
+<!-- TopNavBar (Web) -->
+<nav class="hidden md:flex justify-between items-center w-full px-margin py-sm max-w-7xl mx-auto bg-surface/40 backdrop-blur-xl docked full-width top-0 sticky border-b border-white/20 bg-clip-padding shadow-[0_8px_32px_0_rgba(123,85,73,0.1)] z-50">
+<div class="font-display-romantic text-headline-lg text-tertiary dark:text-tertiary-fixed">
+            For Rara
+        </div>
+<ul class="flex gap-lg items-center">
+<li class="">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-display-romantic text-display-romantic hover:text-primary transition-all duration-300 hover:scale-105" href="#">Our Story</a>
+</li>
+<li class="">
+<a class="text-on-surface-variant/80 font-body-md hover:text-primary transition-all duration-300 hover:scale-105" href="#">Gallery</a>
+</li>
+<li class="">
+<a class="text-on-surface-variant/80 font-body-md hover:text-primary transition-all duration-300 hover:scale-105" href="#">Love Notes</a>
+</li>
+</ul>
+<div class="flex items-center gap-md text-primary dark:text-primary-fixed-dim">
+<button aria-label="Toggle Music" class="flex items-center gap-2 hover:text-primary transition-all duration-300 hover:scale-105 bg-white/20 px-3 py-1 rounded-full border border-white/40 backdrop-blur-sm" id="music-toggle"><span class="material-symbols-outlined" id="music-icon">volume_off</span><span class="text-[10px] uppercase tracking-widest font-body-md opacity-0 transition-opacity duration-500" id="now-playing">Now Playing: Valdy's Surprise</span></button><div class="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full border border-white/40 backdrop-blur-sm group">
+<span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform">volume_down</span>
+<input class="w-24 md:w-40 h-2 bg-primary/20 rounded-full appearance-none cursor-pointer accent-primary hover:accent-secondary transition-all outline-none focus:ring-2 focus:ring-primary/50 slider-thumb-custom" id="volume-slider" max="1" min="0" step="0.01" type="range" value="1"/>
+<span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform">volume_up</span>
+</div>
+</div>
+</nav>
+<!-- Loading / Teaser Section -->
+<section class="min-h-[512px] flex flex-col justify-center items-center text-center px-margin bg-gradient-to-b from-surface-bright to-surface">
+<div class="inline-flex items-center gap-sm bg-primary-container/30 border border-white/40 rounded-full px-lg py-sm backdrop-blur-md mb-lg">
+<span class="material-symbols-outlined text-primary text-sm">favorite</span>
+<span class="font-body-md text-body-md text-primary tracking-widest uppercase text-xs"><span class="cinematic-drift">VALDY is preparing something special</span></span>
+<span class="material-symbols-outlined text-primary text-sm">favorite</span>
+</div>
+</section>
+<!-- Hero Section -->
+<main class="relative flex flex-col items-center justify-center min-h-[819px] px-margin text-center bg-gradient-to-b from-surface via-primary-container/10 to-surface overflow-hidden py-xl">
+<!-- Decorative blurred hearts -->
+<div class="absolute top-10 left-[10%] w-32 h-32 bg-secondary-container/40 rounded-full blur-3xl"></div>
+<div class="absolute bottom-20 right-[15%] w-48 h-48 bg-tertiary-container/30 rounded-full blur-3xl"></div>
+<h1 class="font-display-romantic text-display-romantic text-primary mb-md relative z-10 max-w-4xl leading-tight">
+            Happy Birthday, <br/><span class="text-secondary italic">RARA ❤️</span>
+</h1>
+<!-- Photo Collage -->
+<div class="relative z-10 flex justify-center items-center w-full max-w-3xl mb-xl h-[400px] mt-md">
+<div class="absolute bg-white p-3 md:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-sm rotate-[-8deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-48 md:w-64 z-10 left-[5%] md:left-[10%] top-[10%]">
+<img alt="Rara Beautiful" class="w-full h-auto aspect-square object-cover rounded-sm border border-surface-variant" src="https://lh3.googleusercontent.com/aida/ADBb0ujAYj53VwvmzsohGhrExBhcVuFg7hdTCixfcaEDZKAIl6Nhxlt_kaZUvvJRMCu7PLy70y0UiMrgGJlaRDpn78XPKXolMfsiXWJp-nxlOiGQ6NM5g5GGrU1mEFZfSp6cIB35ovoTHSwulDX_QYSmJBW1tzh69P8kK4IxOODQJDjUrXqQZ0kLd_qOn6DLJuDBf5IajQql8aic1Swf-c1EVAf0sA2SDWlmnuB4ETaIa_FrVtxeKigZh09PLnxGj5KeVYFn_zdixotOTA"/>
+</div>
+<div class="absolute bg-white p-3 md:p-4 shadow-[0_15px_40px_rgba(0,0,0,0.12)] rounded-sm rotate-[3deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-56 md:w-72 z-30 left-1/2 -translate-x-1/2 top-[0%]">
+<img alt="Rara Smiling" class="w-full h-auto aspect-[3/4] object-cover rounded-sm border border-surface-variant" src="https://lh3.googleusercontent.com/aida/ADBb0ujJI_LIJou6Rm56zDND_i4v9DZXxJda6p8EwanOJqzm9vdczMa5dUuOmrjgDMt2cZnVXqWObmPcl1Yqtdef1kFJOLUDxwnTaVi7Ry8Bv5oX0LI7XoeaK3iGEb3K7DM-hjlGZ32ZMGhSbJR3bQu5a0VebBwdKzmrZOoV8E3r18h17THKVITwq38FUhvLNYJqRWT0mIm4GJJL5RlANzl5pv6jPuPoTli6eB2MHhin2R08cju9D9c_rjd4IoEW7G8xM0DIX_pOyBRKHYs"/>
+</div>
+<div class="absolute bg-white p-3 md:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-sm rotate-[10deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-48 md:w-64 z-20 right-[5%] md:right-[10%] top-[15%]">
+<img alt="Rara Cute" class="w-full h-auto aspect-square object-cover rounded-sm border border-surface-variant" src="https://lh3.googleusercontent.com/aida/ADBb0uj8n8ygsh4pm4bMx69wjZfQcWMztgXJIUjO-xt_biSXKvE7kTr8wlI9PX7_ipcnCrPoN_oN7xuKBwzdj7uDy3VhrrOjGDXq3xryNwBlWA3-TSs4isthGW4kV8ybPfMs3poG2hAy05AoiD4LM8Mvlg_4_YYit6ywlY6ove3Ynu15NkdI11EjEV1zR9RMDJrmsxp5v81hzH20GjdtvzqTRVwzxnQxttMIwZud9nrvKewGU-gLBRPWjjh31d2JUVCsMpwStbbaLeGHUg"/>
+</div>
+</div>
+<p class="font-letter-cursive text-letter-cursive text-on-surface-variant max-w-2xl mb-xl relative z-10">
+            A celebration of the most beautiful soul I know. Today is all about you, your smile, and the joy you bring into my world.
+        </p>
+<div class="flex flex-col sm:flex-row gap-md relative z-10">
+<button class="bg-gradient-to-r from-secondary-container to-primary-container text-primary-fixed-variant px-xl py-md rounded-full font-bold shadow-[0_0_30px_rgba(248,212,254,0.6)] hover:shadow-[0_0_40px_rgba(248,212,254,0.8)] transition-all hover:-translate-y-1 backdrop-blur-xl border border-white/40">
+                Open My Heart
+            </button>
+<button class="bg-white/40 backdrop-blur-xl border border-white/50 text-tertiary px-xl py-md rounded-full font-medium hover:bg-white/60 transition-colors">
+                Our Love Story
+            </button>
+</div>
+</main>
+<!-- About Rara (Bento Grid) -->
+<section class="py-xl px-margin max-w-7xl mx-auto">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-tertiary mb-sm">Why VALDY Loves RARA So Much ❤️</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Just a few of the millions of reasons...</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Trait 1 -->
+<div class="bg-surface-container/60 backdrop-blur-2xl border border-white/50 rounded-2xl p-lg shadow-[0_8px_32px_rgba(113,84,120,0.05)] hover:shadow-[0_0_30px_rgba(248,212,254,0.4)] transition-all duration-500 hover:-translate-y-2 group">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">sentiment_very_satisfied</span>
+</div>
+<h3 class="font-headline-lg text-[24px] font-semibold text-primary mb-xs">Penyabar</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your patience is a calming embrace that makes everything feel okay.</p>
+</div>
+<!-- Trait 2 -->
+<div class="bg-surface-container/60 backdrop-blur-2xl border border-white/50 rounded-2xl p-lg shadow-[0_8px_32px_rgba(113,84,120,0.05)] hover:shadow-[0_0_30px_rgba(248,212,254,0.4)] transition-all duration-500 hover:-translate-y-2 group md:translate-y-8">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary">mood</span>
+</div>
+<h3 class="font-headline-lg text-[24px] font-semibold text-secondary mb-xs">Lucu Banget</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your laugh is my favorite sound, and your silliness is my favorite view.</p>
+</div>
+<!-- Trait 3 -->
+<div class="bg-surface-container/60 backdrop-blur-2xl border border-white/50 rounded-2xl p-lg shadow-[0_8px_32px_rgba(113,84,120,0.05)] hover:shadow-[0_0_30px_rgba(248,212,254,0.4)] transition-all duration-500 hover:-translate-y-2 group">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary">star</span>
+</div>
+<h3 class="font-headline-lg text-[24px] font-semibold text-tertiary mb-xs">Cantik Luar Biasa</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Inside and out, you shine with a beauty that takes my breath away.</p>
+</div>
+</div>
+</section>
+<!-- Birthday Special -->
+<section class="py-xl px-margin flex justify-center items-center relative">
+<div class="bg-gradient-to-br from-primary-container/40 to-secondary-container/40 backdrop-blur-2xl border border-white/60 rounded-[2rem] p-xl max-w-4xl w-full text-center shadow-[0_20px_60px_rgba(113,84,120,0.1)] relative overflow-hidden">
+<!-- decorative sparkles -->
+<span class="material-symbols-outlined absolute top-10 left-10 text-primary-fixed-dim rotate-12">auto_awesome</span>
+<span class="material-symbols-outlined absolute bottom-10 right-10 text-secondary-fixed-dim -rotate-12">auto_awesome</span>
+<h2 class="font-display-romantic text-headline-lg text-primary mb-md">Born on the most beautiful day ever ✨</h2>
+<div class="inline-block bg-white/50 backdrop-blur-md border border-white/40 rounded-xl px-xl py-lg mt-md shadow-sm">
+<p class="font-headline-lg text-display-romantic text-tertiary">08 Mei 2004</p>
+<p class="font-letter-cursive text-letter-cursive text-secondary mt-sm">A star fell to earth.</p>
+</div>
+</div>
+</section>
+<!-- Love Letter -->
+<section class="py-xl px-margin bg-surface-bright">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-center text-primary mb-xl">A Letter for You</h2>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-xl md:p-[4rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] relative">
+<!-- paper lines -->
+<div class="absolute inset-0 bg-[linear-gradient(transparent_0%,_transparent_calc(100%_-_1px),_rgba(208,195,199,0.3)_calc(100%_-_1px),_rgba(208,195,199,0.3)_100%)] bg-[length:100%_2rem] pointer-events-none opacity-50"></div>
+<p class="font-letter-cursive text-on-surface-variant relative z-10 whitespace-pre-line leading-relaxed text-[24px] tracking-wide italic">
+                    My dearest Rara,
+
+                    Hari ini, dunia ikut tersenyum karena kamu lahir. Aku ingin nulis sesuatu yang panjang, tapi sebenernya yang mau aku katakan cuma satu, terima kasih sudah jadi kamu.
+Terima kasih buat sabar yang nggak pernah habis, buat ketawa kamu yang bikin hari paling biasa pun jadi hangat. Kamu nggak pernah tahu betapa lucunya kamu kalau lagi cerita hal-hal kecil.
+Kamu cantik, RARA. Cantik yang jujur, yang nggak perlu effort, yang tetap kelihatan walau kamu ngerasa biasa aja. Kalau ada satu hal yang aku yakin di dunia ini, itu adalah betapa beruntungnya aku bisa lihat kamu setiap hari.
+Aku berharap hari ini, dan setiap hari setelahnya, kamu selalu bahagia. Bahagia yang tenang, yang nggak harus dijelasin ke siapa-siapa. Dan kalau suatu hari kamu nggak bisa bahagia sendirian, aku janji aku akan ada, sedekat napas, sehangat pelukan.
+Selamat ulang tahun, my favorite person. Tetap jadi kamu, ya. Aku sayang kamu, lebih banyak dari yang pernah aku ucapkan.
+
+                    Happy Birthday, my love. Here's to a lifetime of birthdays together.
+
+                    Forever yours,
+                    Valdy ❤️
+                </p>
+</div>
+</div>
+</section>
+<!-- Memories Gallery -->
+<section class="py-xl px-margin max-w-7xl mx-auto overflow-hidden">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-secondary mb-sm">Our Cherished Moments</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">A glimpse into our forever.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-xl">
+<!-- Polaroid 1 -->
+<div class="bg-white p-sm pb-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-sm rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-72">
+<div class="w-full h-64 bg-surface-container rounded-sm overflow-hidden border border-surface-variant">
+<img alt="Romantic moment" class="w-full h-full object-cover grayscale-[20%] sepia-[10%]" data-alt="A soft-focus close-up of a couple holding hands during a golden hour sunset in a grassy field. The lighting is warm and ethereal, casting long shadows. The image has a subtle vintage film grain and a slightly faded, nostalgic color grading, evoking a tender and intimate mood fitting a luxury gift aesthetic." src="https://lh3.googleusercontent.com/aida/ADBb0ugmPz-Uh9qc6xFNWlF9dIT_G-7brEMS2tD0QOX7ucKkyLfG1pVZiMmmNs2F9SnOA01YJGa0r1quoCKuRjOfVK-EeXZdGA9MhSU_QC7DrvEB4rwGctco93YCUDq706HtaEb3eW_2vPKhIl0ft3fadJXhPKniKYAFsrlrOF-dFomUAsgQg8wOYK02OuNY1qH0r_xSjD_ty-Amlwe01QPzbHw7kqglAbmDmWFw4207nvHCKTWmn1g40vRWZj6J_m4nCEuRPi41fW2Up5E"/>
+</div>
+<p class="font-letter-cursive text-letter-cursive text-center text-primary mt-md">Where it all began</p>
+</div>
+<!-- Polaroid 2 -->
+<div class="bg-white p-sm pb-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-sm rotate-[2deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-72 translate-y-8">
+<div class="w-full h-64 bg-surface-container rounded-sm overflow-hidden border border-surface-variant">
+<img alt="Happy couple" class="w-full h-full object-cover grayscale-[10%] sepia-[20%]" data-alt="A candid, joyful shot of a couple laughing together in a softly lit, modern café setting. The scene is illuminated by gentle, diffused window light creating a bright, airy atmosphere. The color palette leans towards warm creams, soft pinks, and light browns, perfectly matching a high-end, romantic digital scrapbook style." src="https://lh3.googleusercontent.com/aida/ADBb0uiYPO_PdffjDV2YzE4lpXL82VpbLUhDTq0_BZtrQYqbpZRDlz9VNneedwUXg59rVRzEAJeHHwQL_Sw-fE4F2ExvsZAmKYDIuO1BRdIEKyuWVQtkTZynlFRp4oZZiQkfU4Y4OwGicE-NMF93NRERMQqEbakqvSmlEHdDKsd5GJbY1KVr-FPe0Mk23BlP5cbsJTrbTglH1-DIxwWbANWeQ4SS5qZFdIsM44prVg4Kv_wOYhVQZJf9DG98y2R6avBhQgUBuNhUOZ3jLcU"/>
+</div>
+<p class="font-letter-cursive text-letter-cursive text-center text-secondary mt-md">That beautiful smile</p>
+</div>
+<!-- Polaroid 3 -->
+<div class="bg-white p-sm pb-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-sm rotate-[-1deg] hover:rotate-0 hover:scale-105 transition-all duration-500 w-72">
+<div class="w-full h-64 bg-surface-container rounded-sm overflow-hidden border border-surface-variant">
+<img alt="Wedding/Promise rings" class="w-full h-full object-cover sepia-[15%]" data-alt="An artistic, macro photograph of two delicate hands intertwined, resting on a soft, luxurious cream-colored silk fabric. The lighting is gentle and flattering, highlighting the soft textures. The overall tone is intimate, serene, and deeply romantic, adhering strictly to a premium light-mode visual language with subtle hints of rose gold." src="https://lh3.googleusercontent.com/aida/ADBb0ujD1zgZCGbJ3f4UA9Kwf3KRQZGHQunm9zzRkxuOAVTXx36d9As6J5YFsGOZPQtd2t9Z5jaOJxzCz3HF1oXkyJYA0OZB9Bi4RTHBwDnxc4giE5H7lMkW7Yt2W8iMu-qY7sPfvmpQhWBqsxSKFJ9Gg92vLy8XUfVbP5daoXwlFknzS0SOt68MiwednrgJ9-caofBPNyswENv56xCVVxg81dIwrdd5N8VKX1vGMeHJMQKz5d1_H0mW1A_Djq2M6HTu7nu5nQX_27AClAI"/>
+</div>
+<p class="font-letter-cursive text-letter-cursive text-center text-tertiary mt-md">Forever &amp; Always</p>
+</div>
+</div>
+</section>
+<!-- Interactive Placeholder -->
+<section class="py-xl px-margin flex justify-center text-center relative overflow-hidden" id="interactive-love-section">
+<div class="bg-white/30 backdrop-blur-xl border border-white/50 rounded-[3rem] p-xl max-w-2xl w-full shadow-[0_8px_32px_rgba(113,84,120,0.1)] relative z-10">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-lg">How much do you love Valdy?</h2>
+<div class="relative inline-block">
+<button class="relative z-20 bg-gradient-to-r from-primary to-secondary text-white px-xl py-lg rounded-full font-bold text-lg shadow-[0_0_20px_rgba(113,84,120,0.4)] transition-all duration-150 select-none cursor-pointer border border-white/20" id="love-button">
+                Klik kalau RARA sayang VALDY ❤️
+            </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/60 mt-sm text-sm" id="love-click-counter-text">(A little interactive surprise awaits)</p>
+</div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loveButton = document.getElementById('love-button');
+        const section = document.getElementById('interactive-love-section');
+        const counterText = document.getElementById('love-click-counter-text');
+        const colors = ['#f4dce4', '#debbe4', '#ffdad6', '#ffe5dd', '#f8d4fe'];
+        let clickCount = 0;
+
+        loveButton.addEventListener('mousedown', () => {
+            loveButton.classList.add('btn-press');
+        });
+
+        loveButton.addEventListener('mouseup', () => {
+            loveButton.classList.remove('btn-press');
+        });
+
+        loveButton.addEventListener('mouseleave', () => {
+            loveButton.classList.remove('btn-press');
+        });
+
+        loveButton.addEventListener('click', (e) => {
+            clickCount++;
+            
+            if (clickCount === 1) {
+                counterText.innerText = "Love sending... ❤️";
+            } else if (clickCount === 5) {
+                counterText.innerText = "So much love! 💖";
+            } else if (clickCount >= 10) {
+                counterText.innerText = `Unlimited Love x${clickCount} ✨`;
+            }
+
+            createParticles(e);
+            createFloatingText(e);
+        });
+
+        function createParticles(e) {
+            const rect = loveButton.getBoundingClientRect();
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+            
+            const sectionRect = section.getBoundingClientRect();
+            const startX = btnX - sectionRect.left;
+            const startY = btnY - sectionRect.top;
+
+            const particleCount = 15 + Math.random() * 10;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = '❤️';
+                particle.className = 'particle';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 50;
+                const rot = (Math.random() - 0.5) * 360;
+                const scale = 0.5 + Math.random() * 1;
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.setProperty('--rot', `${rot}deg`);
+                particle.style.transform = `scale(${scale})`;
+                
+                section.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+
+        function createFloatingText(e) {
+            const rect = loveButton.getBoundingClientRect();
+            const sectionRect = section.getBoundingClientRect();
+            
+            const startX = (rect.left + rect.width / 2) - sectionRect.left;
+            const startY = rect.top - sectionRect.top;
+
+            const text = document.createElement('div');
+            text.className = 'floating-text font-display-romantic';
+            text.innerText = clickCount > 5 ? "Unlimited Love ❤️" : "+1 Love";
+            text.style.left = `${startX}px`;
+            text.style.top = `${startY}px`;
+            
+            section.appendChild(text);
+
+            setTimeout(() => {
+                text.remove();
+            }, 1500);
+        }
+    });
+</script>
+<!-- Catch Valdy's Love Game -->
+<section class="py-xl px-margin flex justify-center" id="love-game-section">
+<div class="bg-white/30 backdrop-blur-2xl border border-white/50 rounded-[3rem] p-lg md:p-xl max-w-4xl w-full shadow-[0_20px_50px_rgba(113,84,120,0.1)] text-center relative overflow-hidden flex flex-col items-center">
+<h2 class="font-display-romantic text-headline-lg text-primary mb-md">Catch Valdy's Love</h2>
+<p class="font-body-md text-on-surface-variant mb-lg">Move the basket to catch the falling hearts!</p>
+<div class="relative h-[400px] w-full max-w-2xl bg-primary-container/20 rounded-2xl border border-white/40 overflow-hidden cursor-none" id="game-container-new">
+<!-- UI Overlay: Start Screen -->
+<div class="absolute inset-0 z-40 bg-surface/80 backdrop-blur-sm flex flex-col items-center justify-center" id="game-start-screen">
+<span class="material-symbols-outlined text-secondary text-6xl mb-4 animate-pulse">favorite</span>
+<button class="bg-gradient-to-r from-secondary to-primary text-white px-xl py-lg rounded-full font-bold text-lg shadow-[0_0_30px_rgba(113,84,120,0.4)] hover:scale-105 transition-all" id="btn-start-game">
+                Play Game ✨
+            </button>
+</div>
+<!-- UI Overlay: Game Over Screen -->
+<div class="absolute inset-0 z-40 bg-surface/90 backdrop-blur-md flex flex-col items-center justify-center hidden" id="game-over-screen">
+<h3 class="font-display-romantic text-headline-lg text-primary mb-2">Time's Up!</h3>
+<p class="font-headline-lg text-secondary text-2xl mb-6">Score: <span class="" id="final-score">0</span></p>
+<button class="bg-primary text-white px-lg py-md rounded-full font-bold hover:scale-105 transition-all" id="btn-restart-game">
+                Play Again
+            </button>
+</div>
+<!-- HUD -->
+<div class="absolute top-4 left-4 z-20 flex justify-between w-[calc(100%-2rem)] pointer-events-none">
+<p class="font-headline-lg text-secondary text-xl font-bold bg-white/60 px-4 py-1 rounded-full backdrop-blur-md shadow-sm border border-white/40">Score: <span class="" id="game-score">0</span></p>
+<p class="font-headline-lg text-primary text-xl font-bold bg-white/60 px-4 py-1 rounded-full backdrop-blur-md shadow-sm border border-white/40">Time: <span class="" id="game-time">30</span>s</p>
+</div>
+<!-- Player -->
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-24 h-24 flex flex-col items-center justify-center pointer-events-none z-30 transition-transform duration-75" id="game-player">
+<div class="bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-secondary mb-1 relative overflow-hidden">
+<span class="font-bold text-[10px] text-primary">VALDY</span>
+</div>
+<span class="material-symbols-outlined text-[48px] text-secondary drop-shadow-md">shopping_basket</span>
+</div>
+<!-- Hearts Container -->
+<div class="absolute inset-0 pointer-events-none z-10 overflow-hidden" id="game-items"></div>
+</div>
+</div>
+</section>
+<script>document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('game-container-new');
+        const startScreen = document.getElementById('game-start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const btnStart = document.getElementById('btn-start-game');
+        const btnRestart = document.getElementById('btn-restart-game');
+        const scoreDisplay = document.getElementById('game-score');
+        const timeDisplay = document.getElementById('game-time');
+        const finalScoreDisplay = document.getElementById('final-score');
+        const player = document.getElementById('game-player');
+        const itemsContainer = document.getElementById('game-items');
+        
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = false;
+        let gameInterval;
+        let spawnInterval;
+        let items = [];
+        let animationFrameId;
+
+        function updatePlayerPosition(clientX) {
+            if (!gameActive) return;
+            const rect = container.getBoundingClientRect();
+            let x = clientX - rect.left;
+            
+            const playerWidth = player.offsetWidth;
+            if (x < playerWidth / 2) x = playerWidth / 2;
+            if (x > rect.width - playerWidth / 2) x = rect.width - playerWidth / 2;
+            
+            player.style.left = `${x}px`;
+        }
+
+        container.addEventListener('mousemove', (e) => {
+            updatePlayerPosition(e.clientX);
+        });
+        
+        container.addEventListener('touchmove', (e) => {
+            if (!gameActive) return;
+            e.preventDefault();
+            updatePlayerPosition(e.touches[0].clientX);
+        }, { passive: false });
+
+        function spawnItem() {
+            if (!gameActive) return;
+            const itemEl = document.createElement('div');
+            const icons = ['favorite', 'favorite_border', 'volunteer_activism'];
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            
+            itemEl.innerHTML = `<span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">${randomIcon}</span>`;
+            itemEl.className = 'absolute';
+            
+            const xPos = Math.random() * (container.offsetWidth - 40);
+            itemEl.style.left = `${xPos}px`;
+            itemEl.style.top = `-40px`;
+            
+            itemsContainer.appendChild(itemEl);
+            
+            items.push({
+                el: itemEl,
+                y: -40,
+                speed: 4 + Math.random() * 3
+            });
+        }
+
+        function gameLoop() {
+            if (!gameActive) return;
+
+            const playerRect = player.getBoundingClientRect();
+
+            for (let i = items.length - 1; i >= 0; i--) {
+                const item = items[i];
+                item.y += item.speed;
+                item.el.style.top = `${item.y}px`;
+
+                const itemRect = item.el.getBoundingClientRect();
+
+                // Collision Detection
+                if (
+                    itemRect.bottom >= playerRect.top &&
+                    itemRect.top <= playerRect.bottom &&
+                    itemRect.right >= playerRect.left &&
+                    itemRect.left <= playerRect.right
+                ) {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    item.el.remove();
+                    items.splice(i, 1);
+                    continue;
+                }
+
+                // Remove items out of bounds
+                if (item.y > container.offsetHeight) {
+                    item.el.remove();
+                    items.splice(i, 1);
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            timeDisplay.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                endGame();
+            }
+        }
+
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            gameActive = true;
+            items.forEach(item => item.el.remove());
+            items = [];
+            
+            scoreDisplay.textContent = score;
+            timeDisplay.textContent = timeLeft;
+            
+            startScreen.classList.add('hidden');
+            gameOverScreen.classList.add('hidden');
+            player.style.left = `50%`;
+            
+            gameInterval = setInterval(updateTimer, 1000);
+            spawnInterval = setInterval(spawnItem, 600);
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+            cancelAnimationFrame(animationFrameId);
+            
+            finalScoreDisplay.textContent = score;
+            gameOverScreen.classList.remove('hidden');
+        }
+
+        btnStart.addEventListener('click', startGame);
+        btnRestart.addEventListener('click', startGame);
+    });</script><footer class="py-xl px-margin bg-gradient-to-t from-primary-container/20 to-surface-bright text-center relative overflow-hidden">
+<!-- Decorative blurred background elements -->
+<div class="absolute -bottom-20 left-1/4 w-64 h-64 bg-secondary-container/30 rounded-full blur-3xl opacity-50"></div>
+<div class="absolute -bottom-20 right-1/4 w-64 h-64 bg-tertiary-container/30 rounded-full blur-3xl opacity-50"></div>
+<div class="max-w-4xl mx-auto relative z-10">
+<!-- Heartfelt Message -->
+<h2 class="font-display-romantic text-headline-lg text-primary mb-lg tracking-tight">
+            For Rara — Thank You For Existing In VALDY's Life ❤️
+        </h2>
+<!-- Romantic Keywords -->
+<div class="flex justify-center items-center gap-md mb-xl">
+<span class="font-letter-cursive text-secondary text-xl">Forever</span>
+<span class="text-outline-variant">•</span>
+<span class="font-letter-cursive text-secondary text-xl">Always</span>
+<span class="text-outline-variant">•</span>
+<span class="font-letter-cursive text-secondary text-xl">Ours</span>
+</div>
+<!-- Divider -->
+<div class="w-16 h-px bg-outline-variant/30 mx-auto mb-lg"></div>
+<!-- Final Sign-off -->
+<p class="font-body-md text-on-surface-variant font-medium tracking-widest uppercase text-xs mb-sm">
+            With love, Valdy — 2026</p>
+<!-- Soundtrack Credit -->
+<p class="font-body-md text-on-surface-variant/40 text-[10px] italic">Soundtrack: Background Theme — Valdy's Surprise</p>
+</div>
+<!-- Floating Heart Decorations -->
+<div class="absolute top-10 left-1/2 -translate-x-1/2 flex gap-xl pointer-events-none opacity-20">
+<span class="material-symbols-outlined text-primary text-sm animate-bounce">favorite</span>
+<span class="material-symbols-outlined text-secondary text-sm animate-pulse delay-75">favorite</span>
+<span class="material-symbols-outlined text-primary text-sm animate-bounce delay-150">favorite</span>
+</div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const nowPlaying = document.getElementById('now-playing');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // Volume Control
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+        });
+
+        // Toggle Play/Pause
+        musicToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.textContent = 'volume_up';
+                nowPlaying.classList.remove('opacity-0');
+            } else {
+                audio.pause();
+                musicIcon.textContent = 'volume_off';
+                nowPlaying.classList.add('opacity-0');
+            }
+        });
+
+        // Auto-play on first interaction
+        const startAudio = () => {
+            audio.play().then(() => {
+                musicIcon.textContent = 'volume_up';
+                nowPlaying.classList.remove('opacity-0');
+                document.removeEventListener('click', startAudio);
+            }).catch(e => console.log('Autoplay prevented'));
+        };
+        document.addEventListener('click', startAudio);
+
+        // Original Mouse Trail Script
+        let lastTime = 0;
+        const throttleLimit = 50;
+        const heartIcons = ['❤️', '💖', '💕', '💗'];
+        const heartColors = ['#f4dce4', '#debbe4', '#ffdad6', '#6b5a60', '#715478'];
+
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastTime < throttleLimit) return;
+            lastTime = now;
+
+            const heart = document.createElement('span');
+            heart.className = 'heart-trail';
+            heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            
+            const rotation = (Math.random() - 0.5) * 40;
+            const color = heartColors[Math.floor(Math.random() * heartColors.length)];
+            
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.color = color;
+            heart.style.setProperty('--rot', rotation + 'deg');
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 800);
+        });
+    });
+</script>
+<audio id="bg-music" loop="" preload="auto">
+<source src="https://vocaroo.com/media_command.php?media=171Cd4PgDImJ&amp;command=download" type="audio/mpeg"/>
+</audio></body></html>
